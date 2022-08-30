@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\Anggaran\AnggaranController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Nppd\NppdController;
 use App\Http\Controllers\Sppd\SppdController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Profile\ProfileController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\{RegisterController, LoginController};
 use App\Http\Controllers\Location\LocationController;
 use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\Transport\TransportController;
@@ -42,17 +42,28 @@ Route::middleware(['auth'])->group(function()
 
     Route::resource('/sppd', SppdController::class);
 
-    Route::resource('/nppd', NppdController::class);
+    // Route::resource('/nppd', NppdController::class);
+    // Route NPPD
+    Route::get('/nppd', [NppdController::class, 'index'])->name('nppd.index');
+    Route::get('/nppd/create', [NppdController::class, 'create'])->name('nppd.create');
+    Route::post('/nppd/create', [NppdController::class, 'store']);
+    Route::get('/nppd/{nppd}/edit', [NppdController::class, 'edit'])->name('nppd.edit');
+    Route::put('/nppd/{nppd}/edit', [NppdController::class, 'update']);
+    Route::delete('/nppd/{nppd}', [NppdController::class, 'destroy'])->name('nppd.destroy');
+    Route::put('/status/{nppd}', [NppdController::class, 'status'])->name('status');
+    // Route NPPD
 
     Route::resource('/location', LocationController::class);
 
     Route::resource('/transport', TransportController::class);
 
+    Route::resource('/anggaran', AnggaranController::class);
+
     Route::get('/report', [ReportController::class, 'index'])->name('report.index');
     Route::get('/report/create/{id}', [ReportController::class, 'create'])->name('report.create');
-    Route::post('/report/store', [ReportController::class, 'store'])->name('report.store');
-    Route::get('/report/{id}/edit', [ReportController::class, 'edit'])->name('report.edit');
-    Route::put('/report/{id}', [ReportController::class, 'update'])->name('report.update');
+    Route::post('/report/create/{id}', [ReportController::class, 'store']);
+    Route::get('/report/{report}/edit', [ReportController::class, 'edit'])->name('report.edit');
+    Route::put('/report/{report}/edit', [ReportController::class, 'update']);
     Route::delete('/report/{report}', [ReportController::class, 'destroy'])->name('report.destroy');
     Route::get('/report/print', [ReportController::class, 'print'])->name('report.print');
 

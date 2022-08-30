@@ -12,19 +12,16 @@ class Nppd extends Model
 
     protected $id;
 
-    // protected $fillable = [
-    //     'users', 'lokasi', 'tujuan', 'transportasi', 'tgl_pergi', 'tgl_pulang'
-    // ];
-
     protected $guarded = ['id'];
 
     public function nppd_user()
     {
         return $this->belongsTo(NppdUser::class, 'id', 'nppd_id');
     }
+
     public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'nppd_user', 'nppd_id', 'user_id');
     }
 
     public function location()
@@ -37,10 +34,10 @@ class Nppd extends Model
         return $this->belongsToMany(Transports::class, 'nppd_transport', 'nppd_id', 'transport_id');
     }
 
-    // public function pegawai()
-    // {
-    //     return $this->belongsTo();
-    // }
+    public function anggaran()
+    {
+        return $this->belongsTo(Anggaran::class);
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

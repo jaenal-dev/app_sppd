@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('anggarans', function (Blueprint $table) {
             $table->id();
+            $table->float('nominal', 12, 3);
             $table->timestamps();
         });
     }

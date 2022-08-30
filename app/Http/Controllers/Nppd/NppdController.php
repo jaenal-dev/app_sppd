@@ -7,6 +7,7 @@ use App\Models\Locations;
 use App\Models\Transports;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Anggaran;
 use App\Models\Nppd;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,15 +21,15 @@ class NppdController extends Controller
     public function index()
     {
         if (Auth::user()->role == 1) {
-            $get_data = Nppd::all();
+            $nppd = Nppd::latest()->get();
         } else {
-            $get_data = Nppd::whereHas('nppd_user', function($q){
+            $nppd = Nppd::where('nppd_user', function($q){
                 $q->where('user_id', Auth::user()->id);
             })->get();
         }
 
         return view('nppd.index', [
-            'nppds' => $get_data,
+            'nppds' => $nppd
         ]);
     }
 
@@ -40,9 +41,10 @@ class NppdController extends Controller
     public function create()
     {
         return view('nppd.create', [
-            'users' => User::all(),
-            'locations' => Locations::all(),
-            'transports' => Transports::all()
+            'users' => User::get(),
+            'locations' => Locations::get(),
+            'transports' => Transports::get(),
+            'anggarans' => Anggaran::get()
         ]);
     }
 
@@ -58,6 +60,7 @@ class NppdController extends Controller
             'tujuan' => ['required', 'max:50', 'string'],
             'tgl_pergi' => ['required', 'date'],
             'tgl_pulang' => ['required', 'date'],
+            'anggaran_id' => ['required'],
             'nomor' => ['nullable'],
         ]);
         $nppd = Nppd::create($validateData);
@@ -88,10 +91,11 @@ class NppdController extends Controller
     public function edit(Nppd $nppd)
     {
         return view('nppd.edit', [
-            'nppd' => Nppd::findOrFail($nppd->id),
-            'users' => User::all(),
-            'locations' => Locations::all(),
-            'transports' => Transports::all()
+            'nppd' => $nppd,
+            'users' => User::get(),
+            'anggarans' => Anggaran::get(),
+            'locations' => Locations::get(),
+            'transports' => Transports::get()
         ]);
     }
 
@@ -108,6 +112,8 @@ class NppdController extends Controller
             'tujuan' => ['required', 'max:50', 'string'],
             'tgl_pergi' => ['required', 'date'],
             'tgl_pulang' => ['required', 'date'],
+            'anggaran_id' => ['required'],
+            'nomor' => ['nullable'],
         ]);
 
         $nppd->update($validateData);
@@ -128,5 +134,11 @@ class NppdController extends Controller
     {
         $nppd->delete();
         return redirect()->back()->withSuccess('Berhasil Hapus');
+    }
+
+    public function status(Nppd $nppd)
+    {
+        Nppd::find($nppd->id)->update(request()->all());
+        return redirect()->back()->withSuccess('Status Berhasil Diubah');
     }
 }

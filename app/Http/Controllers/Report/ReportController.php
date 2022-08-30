@@ -13,7 +13,7 @@ class ReportController extends Controller
     public function index()
     {
         if (Auth::user()->role == 1) {
-            $nppds = Report::all();
+            $nppds = Report::get();
         } else {
             $nppds = Report::where('user_id', Auth::user()->id)->get();
         }
@@ -32,12 +32,14 @@ class ReportController extends Controller
         $request->validate([
             'laporan' => ['required']
         ]);
+
         Report::create([
             'nppd_id' => $request->nppd_id,
             'nomor' => $request->nomor,
             'laporan' => $request->laporan,
             'user_id' => Auth::user()->id,
         ]);
+
         return redirect()->route('report.index')->withSuccess('Berhasil Buat Laporan');
     }
 
@@ -53,13 +55,14 @@ class ReportController extends Controller
         $request->validate([
             'laporan' => ['required']
         ]);
+
         Report::findOrFail($id)->update([
             'nppd_id' => $request->nppd_id,
             'nomor' => $request->nomor,
             'laporan' => $request->laporan,
             'user_id' => Auth::user()->id,
         ]);
-        // dd('Berhasil Mantap');
+
         return redirect()->route('report.index')->withSuccess('Berhasil Ubah Laporan');
     }
 

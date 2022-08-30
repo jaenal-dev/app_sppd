@@ -6,7 +6,7 @@
             <div class="theme-switch-icon"></div>
         </div>
         <div class="header-content">
-            <div class="notification dropdown">
+            {{-- <div class="notification dropdown">
                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="far fa-envelope"></i>
                 </a>
@@ -133,7 +133,7 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
             <div class="dropdown dropdown-menu-end">
                 <a href="#" class="user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="label">
@@ -152,11 +152,11 @@
                                 <i class="ti-user"></i> Profile
                             </div>
                         </a>
-                        <a href="#">
+                        {{-- <a href="#">
                             <div class="description">
                                 <i class="ti-settings"></i> Setting
                             </div>
-                        </a>
+                        </a> --}}
                         <a href="#">
                             <div class="description">
                                 <i class="ti-power-off"></i>

@@ -13,7 +13,7 @@
         Form NPPD
     </div>
     <div class="card">
-        <form action="{{ route('nppd.store') }}" method="POST">
+        <form action="{{ route('nppd.create') }}" method="POST">
             @csrf
             <div class="card-body">
                 <div class="row">
@@ -70,6 +70,18 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label mb-2">Anggaran</label>
+                        <select class="form-select @error('anggaran') is-invalid @enderror" name="anggaran_id" data-placeholder="Anggaran">
+                            <option value=""> - </option>
+                            @foreach ($anggarans as $anggaran)
+                                <option value="{{ $anggaran->id }}">{{ $anggaran->nominal }}</option>
+                            @endforeach
+                        </select>
+                        @error('anggaran')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="card-footer text-end">
                         <button type="submit" class="btn btn-primary">Simpan</button>

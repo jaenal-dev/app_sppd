@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'nip' => '123',
             'email' => 'admin@gmail.com',
+            'role' => 1,
             'image' => null,
             'jenis_kelamin' => 'L',
         ], $default));

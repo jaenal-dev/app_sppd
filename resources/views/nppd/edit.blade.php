@@ -13,11 +13,20 @@
         Form NPPD
     </div>
     <div class="card">
-        <form action="{{ route('nppd.update', $nppd) }}" method="POST">
+        <form action="{{ route('nppd.edit', $nppd) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="card-body">
                 <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label mb-2">Nomor Surat</label>
+                        <input type="text" class="form-control @error('nomor') is-invalid @enderror" name="nomor" value="{{ old('nomor', $nppd->nomor) }}" readonly>
+                        @error('nomor')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label mb-2">Pilih Pegawai</label>
                         <select class="form-select select2 @error('user') is-invalid @enderror" multiple name="user[]" data-placeholder="Pilih Pegawai" data-allow-clear="true" data-tags="true">
@@ -62,6 +71,19 @@
                             @endforeach
                         </select>
                         @error('transport')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label mb-2">Anggaran</label>
+                        <select class="form-select @error('anggaran') is-invalid @enderror" name="anggaran_id">
+                            @foreach ($anggarans as $anggaran)
+                                <option {{ old('anggaran_id', $nppd->anggaran_id == $anggaran->id) ? 'selected' : '-' }} value="{{ $anggaran->id }}">{{ $anggaran->nominal }}</option>
+                            @endforeach
+                        </select>
+                        @error('anggaran')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -114,11 +136,5 @@
         }).on('changeDate', function (e) {
             console.log(e.target.value);
         });
-    </script>
-
-    <script>
-        $(".select2").select2().val({!! json_encode($nppd->user()->allRelatedIds() ) !!}).trigger('change');
-        $(".select2").select2().val({!! json_encode($nppd->location()->allRelatedIds() ) !!}).trigger('change');
-        $(".select2").select2().val({!! json_encode($nppd->transport()->allRelatedIds() ) !!}).trigger('change');
     </script>
 @endsection

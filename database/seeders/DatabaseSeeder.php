@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             TransportSeeder::class,
             UserSeeder::class,
+            AnggaranSeeder::class
         ]);
     }
 }

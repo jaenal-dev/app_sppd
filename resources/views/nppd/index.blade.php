@@ -22,7 +22,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example2" class="table display text-center table-sm">
+                            <table id="example2" class="table display text-center table-md">
                                 <thead>
                                     <tr>
                                         <th><small>No. Surat</small></th>
@@ -31,6 +31,7 @@
                                         <th><small>Transportasi</small></th>
                                         <th><small>Maksud <br> Perjalanan Dinas</small></th>
                                         <th><small>Tgl Pergi <br> s/d <br> Tgl Kembali</small></th>
+                                        <th><small>Tgl Buat</small></th>
                                         @if (Auth::user()->role == 1)
                                             <th><small>Status</small></th>
                                         @endif
@@ -54,19 +55,24 @@
                                             <td class="form-text">
                                                 {{ date('d/F/Y', strtotime($nppd->tgl_pergi)) }}<br>s/d<br>{{ date('d/F/Y', strtotime($nppd->tgl_pulang)) }}
                                             </td>
-                                            @if (Auth::user()->role == 1)
-                                            <td>
-                                                <div class="btn-group pt-2">
-                                                    @if ($nppd->status == 1)
-                                                        <a href="#" class="btn btn-success btn-rounded" data-toggle="tooltip" title="Approved"><i class="fa fa-check"></i></a>
-                                                    @else
-                                                        <a href="#" class="btn btn-warning btn-rounded" data-toggle="tooltip" title="Pending"><i class="fa fa-clock"></i></a>
-                                                    @endif
-                                                </div>
+                                            <td class="form-text">
+                                                {{ date('d/F/Y', strtotime($nppd->created_at)) }}
                                             </td>
+
+                                            @if (Auth::user()->role == 1)
+                                                <td class="p-3">
+                                                    @if ($nppd->status == 1)
+                                                        <span class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalCenter" data-toggle="tooltip" title="Disetujui"><i class="fa fa-check"></i></span>
+                                                    @elseif ($nppd->status == 2)
+                                                        <span class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#verticalCenter" data-toggle="tooltip" title="Ditolak"><i class="fa fa-times"></i></span>
+                                                    @else
+                                                        <span class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#verticalCenter{{ $nppd->id }}" data-toggle="tooltip" title="Pending"><i class="fa fa-clock"></i></span>
+                                                    @endif
+                                                </td>
                                             @endif
-                                            <td>
-                                                <div class="btn-group py-2 mb-0" role="button">
+
+                                            <td class="p-3">
+                                                <div class="btn-group" role="button">
                                                     @if (Auth::user()->role == 1)
                                                         <a href="#" class="btn btn-primary" data-toggle="tooltip" title="Print"><i class="fa fa-print"></i></a>
                                                         <a href="{{ route('nppd.edit', $nppd) }}" class="btn btn-warning" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
@@ -89,7 +95,42 @@
                 </div>
             </div>
         </div>
+
+        <div style="height: 3px; background: 1px black"></div>
+
+        <div class="row same-height mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="modal-header text-center">
+                        <h6>Keterangan</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table display table-sm text-center">
+                                @foreach ($nppds as $nppd)
+                                    <thead>
+                                        <tr>
+                                            <th class="form-text">Nomor Surat</th>
+                                            <th class="form-text">Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="form-text">{{ $nppd->nomor }}</td>
+                                            <td class="form-text">{{ $nppd->keterangan }}</td>
+                                        </tr>
+                                    </tbody>
+                                @endforeach
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    @include('nppd._status')
+
 @endsection
 
 @section('js')

@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('tujuan');
             $table->date('tgl_pergi');
             $table->date('tgl_pulang');
-            $table->boolean('status')->default(0);
+            $table->integer('status')->default(0)->nullable();
+            $table->integer('anggaran_id');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('nppds', function (Blueprint $table) {
             $table->id();
+            $table->string('nomor')->nullable();
             $table->string('tujuan');
             $table->date('tgl_pergi');
             $table->date('tgl_pulang');

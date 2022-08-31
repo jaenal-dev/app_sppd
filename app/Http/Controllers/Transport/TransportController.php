@@ -23,39 +23,34 @@ class TransportController extends Controller
 
     public function store(Request $request, Transports $transports)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'string', 'unique:transports']
         ]);
 
-        Transports::create([
-            'name' => $request->name
-        ]);
+        Transports::create($data);
         return redirect()->route('transport.index')->withSuccess('Berhasil Tambah Data Transport');
     }
 
     public function edit(Transports $transport)
     {
         return view('transport.edit', [
-            // dd($transport),
-            'transport' => Transports::findOrFail($transport->id)
+            'transport' => $transport
         ]);
     }
 
     public function update(Request $request, Transports $transport)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'string', Rule::unique('transports')->ignore($transport->id)]
         ]);
 
-        Transports::findOrFail($transport->id)->update([
-            'name' => $request->name
-        ]);
+        $transport->update($data);
         return redirect()->route('transport.index')->withSuccess('Berhasil Ubah Transport');
     }
 
     public function destroy(Transports $transport)
     {
-        Transports::destroy($transport->id);
+        $transport->delete();
         return redirect()->back()->withSuccess('Berhasil Hapus');
     }
 }

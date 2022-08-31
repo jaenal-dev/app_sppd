@@ -43,7 +43,7 @@
                                         <tr data-entry-id="{{ $nppd->id }}">
                                             <td class="form-text">{{ $nppd->nomor }}</td>
                                             <td class="form-text">
-                                                {{ date('d/F/Y', strtotime($nppd->created_at)) }}
+                                                {{ date('d-F-Y', strtotime($nppd->created_at)) }}
                                             </td>
                                             <td class="form-text">
                                                 {{ $nppd->user()->get()->implode('name', ', ') }}
@@ -56,7 +56,7 @@
                                             </td>
                                             <td class="form-text">{{ $nppd->tujuan }}</td>
                                             <td class="form-text">
-                                                {{ date('d/F/Y', strtotime($nppd->tgl_pergi)) }}<br>s/d<br>{{ date('d/F/Y', strtotime($nppd->tgl_pulang)) }}
+                                                {{ date('d-F-Y', strtotime($nppd->tgl_pergi)) }}<br>s/d<br>{{ date('d-F-Y', strtotime($nppd->tgl_pulang)) }}
                                             </td>
 
                                             @if (Auth::user()->role == 1)

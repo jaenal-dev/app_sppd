@@ -161,7 +161,7 @@
                                 <i class="fas fa-key"></i> Password
                             </div>
                         </a>
-                        <a href="#">
+                        <a>
                             <div class="description">
                                 <i class="ti-power-off"></i>
                                 <form action="{{ route('logout') }}" class="d-inline" method="POST">@csrf

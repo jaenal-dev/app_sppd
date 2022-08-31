@@ -11,9 +11,7 @@ class LocationController extends Controller
 {
     public function index()
     {
-        return view('location.index',[
-            'locations' => Locations::all()
-        ]);
+        return view('location.index',['locations' => Locations::get()]);
     }
 
     public function create()
@@ -23,30 +21,26 @@ class LocationController extends Controller
 
     public function store(Request $request, Locations $locations)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'string', 'unique:locations']
         ]);
 
-        Locations::create([
-            'name' => $request->name
-        ]);
+        Locations::create($data);
         return redirect()->route('location.index')->withSuccess('Berhasil Tambah Data Kota');
     }
 
     public function edit(Locations $location)
     {
-        return view('location.edit', [
-            'location' => Locations::findOrFail($location->id)
-        ]);
+        return view('location.edit', ['location' => $location]);
     }
 
     public function update(Request $request, Locations $location)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'string', Rule::unique('locations')->ignore($location->id)]
         ]);
 
-        Locations::findOrFail($location->id)->update(['name' => $request->name]);
+        $location->update($data);
         return redirect()->route('location.index')->withSuccess('Berhasil Ubah Lokasi');
     }
 

@@ -64,8 +64,8 @@ Route::middleware(['auth'])->group(function()
     Route::resource('/anggaran', AnggaranController::class);
 
     Route::get('/report', [ReportController::class, 'index'])->name('report.index');
-    Route::get('/report/create/{id}', [ReportController::class, 'create'])->name('report.create');
-    Route::post('/report/create/{id}', [ReportController::class, 'store']);
+    Route::get('/report/create/{nppd}', [ReportController::class, 'create'])->name('report.create');
+    Route::post('/report/create/{nppd}', [ReportController::class, 'store']);
     Route::get('/report/{report}/edit', [ReportController::class, 'edit'])->name('report.edit');
     Route::put('/report/{report}/edit', [ReportController::class, 'update']);
     Route::delete('/report/{report}', [ReportController::class, 'destroy'])->name('report.destroy');

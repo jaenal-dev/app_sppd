@@ -11,7 +11,7 @@
         <div class="row same-height">
             <div class="col-md-12">
                 <div class="card">
-                    <form action="{{ route('report.store') }}" method="POST">
+                    <form action="{{ route('report.create', $nppds) }}" method="POST">
                         @csrf
                         <input name="nppd_id" type="hidden" class="form-control" value="{{ $nppds->id }}">
                         <div class="card-body">

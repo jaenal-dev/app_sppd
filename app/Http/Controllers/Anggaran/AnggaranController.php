@@ -11,11 +11,11 @@ class AnggaranController extends Controller
     public function index()
     {
         return view('anggaran.index', [
-            'anggarans' => Anggaran::all()
+            'anggarans' => Anggaran::get()
         ]);
     }
 
-    public function create(Request $request)
+    public function create()
     {
         return view('anggaran.create');
     }

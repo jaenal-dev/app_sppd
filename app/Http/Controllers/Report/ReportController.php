@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Report;
 
-use App\Models\Nppd;
-use App\Models\Report;
+use App\Models\{Nppd, Report};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -17,14 +16,12 @@ class ReportController extends Controller
         } else {
             $nppds = Report::where('user_id', Auth::user()->id)->get();
         }
-        return view('report.index', compact('nppds'));
+        return view('report.index', ['nppds' => $nppds]);
     }
 
-    public function create($id)
+    public function create(Nppd $nppd)
     {
-        return view('report.create', [
-            'nppds' => Nppd::find($id)
-        ]);
+        return view('report.create', ['nppds' => $nppd]);
     }
 
     public function store(Request $request)
@@ -43,20 +40,18 @@ class ReportController extends Controller
         return redirect()->route('report.index')->withSuccess('Berhasil Buat Laporan');
     }
 
-    public function edit($id)
+    public function edit(Report $report)
     {
-        return view('report.edit', [
-            'report' => Report::findOrFail($id)
-        ]);
+        return view('report.edit', ['report' => $report]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Report $report)
     {
         $request->validate([
             'laporan' => ['required']
         ]);
 
-        Report::findOrFail($id)->update([
+        $report->update([
             'nppd_id' => $request->nppd_id,
             'nomor' => $request->nomor,
             'laporan' => $request->laporan,

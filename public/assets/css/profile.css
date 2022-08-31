@@ -1,0 +1,53 @@
+.wrapper {
+    height: 300px;
+    width: 300px;
+    position: relative;
+    border: 5px solid #fff;
+    border-radius: 50%;
+    background: url('/assets/images/avatar1.png');
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+
+.image {
+    position: absolute;
+    bottom: 0;
+    outline: none;
+    color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 120px;
+    cursor: pointer;
+    transition: 0.5s;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+}
+
+.image::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.image::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f030";
+    font-size: 40px;
+    color: #fff;
+    display: inline-block;
+    -webkit-user-select: none;
+}
+
+.image::after {
+    content: 'Update';
+    font-family: 'arial';
+    font-weight: bold;
+    color: #fff;
+    display: block;
+    top: 65px;
+    font-size: 14px;
+    position: absolute;
+}
+
+.image:hover {
+    opacity: 1;
+}

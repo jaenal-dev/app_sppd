@@ -21,7 +21,6 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'jenis_kelamin' => ['required', 'in:P,L'],
             'image' => ['nullable', 'mimes:png,jpg', 'max:2048'],
-            'email' => ['required', 'email', 'string', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
 

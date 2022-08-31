@@ -29,18 +29,6 @@
                     @enderror
                 </div>
             </div>
-            <div class="mb-3">
-                <label class="mb-2 form-label text-muted" for="email">E-Mail Address</label>
-                <div class="input-group input-group-join mb-3">
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autofocus>
-                    <span class="input-group-text rounded-end">&nbsp<i class="fa fa-envelope"></i>&nbsp</span>
-                    @error('email')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </div>
 
             <div class="mb-3">
                 <div class="form-group">

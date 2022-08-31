@@ -140,23 +140,27 @@
                         <span></span>
                         <div>{{ Auth::user()->name }}</div>
                     </div>
-                    <img class="img-user" src="{{ asset('') }}assets/images/avatar1.png" alt="user"srcset="">
+                    @if (Auth::user()->image)
+                        <img class="img-user" src="{{ asset('storage/' . auth()->user()->image) }}" width="40" height="40" style="border-radius: 50%">
+                    @else
+                        <img class="img-user" src="{{ asset('') }}assets/images/avatar1.png" alt="user"srcset="">
+                    @endif
                 </a>
                 <ul class="dropdown-menu small">
                     <!-- <li class="menu-header">
                                 <a class="dropdown-item" href="#">Notifikasi</a>
                             </li> -->
                     <li class="menu-content ps-menu">
-                        <a href="#">
+                        <a href="{{ route('profile') }}">
                             <div class="description">
                                 <i class="ti-user"></i> Profile
                             </div>
                         </a>
-                        {{-- <a href="#">
+                        <a href="{{ route('password.edit') }}">
                             <div class="description">
-                                <i class="ti-settings"></i> Setting
+                                <i class="fas fa-key"></i> Password
                             </div>
-                        </a> --}}
+                        </a>
                         <a href="#">
                             <div class="description">
                                 <i class="ti-power-off"></i>

@@ -72,9 +72,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user.edit', [
-            'user' => User::findOrFail($user->id)
-        ]);
+        //
     }
 
     /**
@@ -86,14 +84,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        User::findOrFail($user->id)->update([
-            'name' => request('name'),
-            'nip' => request('nip'),
-            'email' => request('email'),
-            'jabatan' => request('jabatan'),
-            'esselon' => request('esselon'),
-        ]);
-        return redirect()->route('user.index')->withSuccess('Berhasil Tambah Pegawai');
+        //
     }
 
     /**
@@ -105,6 +96,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         User::destroy($user->id);
-        return redirect()->back()->withSuccess('Berhasil Hapus Data Pegawai');
+        return redirect()->back()->withSuccess($user->name . 'Berhasil Dihapus');
     }
 }

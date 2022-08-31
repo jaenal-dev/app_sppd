@@ -21,12 +21,13 @@ return new class extends Migration
             $table->char('jenis_kelamin',1);
             $table->string('pangkat')->nullable();
             $table->string('esselon')->nullable();
-            $table->string('email')->unique();
             $table->boolean('role')->default(0);
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
+
+            //-----------------------------------------------------//
+            // $table->timestamp('email_verified_at')->nullable();
+            // $table->rememberToken();
         });
     }
 

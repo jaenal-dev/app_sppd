@@ -6,7 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Nppd\NppdController;
 use App\Http\Controllers\Sppd\SppdController;
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Profile\{ProfileController, UpdatePasswordController};
 use App\Http\Controllers\Auth\{RegisterController, LoginController};
 use App\Http\Controllers\Location\LocationController;
 use App\Http\Controllers\Report\ReportController;
@@ -36,9 +36,13 @@ Route::middleware(['auth'])->group(function()
 {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('/user', UserController::class);
+    Route::get('/profile/edit', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
-    Route::get('/profile/user', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/password/edit', [UpdatePasswordController::class, 'edit'])->name('password.edit');
+    Route::put('/password/edit', [UpdatePasswordController::class, 'update']);
+
+    Route::resource('/user', UserController::class);
 
     Route::resource('/sppd', SppdController::class);
 

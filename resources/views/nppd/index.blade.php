@@ -26,12 +26,12 @@
                                 <thead>
                                     <tr>
                                         <th><small>No. Surat</small></th>
+                                        <th><small>Dibuat</small></th>
                                         <th><small>Penugasan <br> Kepada</small></th>
                                         <th><small>Lokasi</small></th>
                                         <th><small>Transportasi</small></th>
                                         <th><small>Maksud <br> Perjalanan Dinas</small></th>
                                         <th><small>Tgl Pergi <br> s/d <br> Tgl Kembali</small></th>
-                                        <th><small>Tgl Buat</small></th>
                                         @if (Auth::user()->role == 1)
                                             <th><small>Status</small></th>
                                         @endif
@@ -42,6 +42,9 @@
                                     @foreach ($nppds as $nppd)
                                         <tr data-entry-id="{{ $nppd->id }}">
                                             <td class="form-text">{{ $nppd->nomor }}</td>
+                                            <td class="form-text">
+                                                {{ date('d/F/Y', strtotime($nppd->created_at)) }}
+                                            </td>
                                             <td class="form-text">
                                                 {{ $nppd->user()->get()->implode('name', ', ') }}
                                             </td>
@@ -54,9 +57,6 @@
                                             <td class="form-text">{{ $nppd->tujuan }}</td>
                                             <td class="form-text">
                                                 {{ date('d/F/Y', strtotime($nppd->tgl_pergi)) }}<br>s/d<br>{{ date('d/F/Y', strtotime($nppd->tgl_pulang)) }}
-                                            </td>
-                                            <td class="form-text">
-                                                {{ date('d/F/Y', strtotime($nppd->created_at)) }}
                                             </td>
 
                                             @if (Auth::user()->role == 1)
@@ -96,6 +96,7 @@
             </div>
         </div>
 
+        @if ($nppds->count())
         <div style="height: 3px; background: 1px black"></div>
 
         <div class="row same-height mt-4">
@@ -127,6 +128,10 @@
                 </div>
             </div>
         </div>
+        @else
+
+        @endif
+
     </div>
 
     @include('nppd._status')

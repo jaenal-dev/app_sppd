@@ -16,47 +16,41 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $default = [
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
-        ];
-
-        User::create(array_merge([
+        User::create([
             'name' => 'admin',
             'nip' => '123',
-            'email' => 'admin@gmail.com',
             'role' => 1,
             'image' => null,
             'jenis_kelamin' => 'L',
-        ], $default));
-        User::create(array_merge([
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        ]);
+        User::create([
             'name' => 'Jaenal Mustakim',
             'nip' => '1855201369',
-            'email' => 'jaenal@gmail.com',
             'image' => null,
             'jenis_kelamin' => 'L',
-        ], $default));
-        User::create(array_merge([
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        ]);
+        User::create([
             'name' => 'Andi Burhanuddin',
             'nip' => '1855201111',
-            'email' => 'andi@gmail.com',
             'image' => null,
             'jenis_kelamin' => 'L',
-        ], $default));
-        User::create(array_merge([
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        ]);
+        User::create([
             'name' => 'Muhammad Iqbal Rashid',
             'nip' => '1855201112',
-            'email' => 'miqbal@gmail.com',
             'image' => null,
             'jenis_kelamin' => 'L',
-        ], $default));
-        User::create(array_merge([
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        ]);
+        User::create([
             'name' => 'Muhammad Wahyudin',
             'nip' => '1855201113',
-            'email' => 'mwahyudin@gmail.com',
             'image' => null,
             'jenis_kelamin' => 'L',
-        ], $default));
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        ]);
     }
 }

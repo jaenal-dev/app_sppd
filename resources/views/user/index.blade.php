@@ -25,7 +25,12 @@
                             <div class="user-name">{{ $user->name }}</div>
                             <div class="text-job text-muted"><small>{{ $user->pangkat }}</small></div>
                             <div class="footer py-2">
-                                <a href="{{ route('profile', $user) }}" class="btn btn-primary" title="Ubah">Ubah</a>
+                                <a href="{{ route('profile', $user) }}" class="btn btn-warning mr-3" title="Ubah"><i class="ti-pencil"></i></a>
+                                <form action="{{ route('user.destroy', $user) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger" title="Hapus"><i class="ti-trash"></i></button>
+                                </form>
                             </div>
                         </div>
                     </div>

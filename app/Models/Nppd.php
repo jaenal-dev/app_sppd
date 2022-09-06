@@ -50,7 +50,7 @@ class Nppd extends Model
 
         static::creating(function($model) {
             $model->id = Nppd::orderBy('id')->max('id') + 1;
-            $model->nomor = str_pad($model->id, 3, '0', STR_PAD_LEFT) . '/' . 'SPT-PNS'. '/' . '2022';
+            $model->nomor = str_pad($model->id, 3, '0', STR_PAD_LEFT) . '/' . '622.96'. '/' . 'um' . '/' . '2891 - setwan' . '/' . '2022';
         });
     }
 }

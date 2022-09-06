@@ -11,6 +11,7 @@ class TransportController extends Controller
 {
     public function index()
     {
+        $this->authorize('read');
         return view('transport.index', [
             'transports' => Transports::paginate(15)
         ]);
@@ -18,11 +19,13 @@ class TransportController extends Controller
 
     public function create()
     {
+        $this->authorize('create');
         return view('transport.create');
     }
 
     public function store(Request $request, Transports $transports)
     {
+        $this->authorize('create');
         $data = $request->validate([
             'name' => ['required', 'string', 'unique:transports']
         ]);
@@ -33,6 +36,7 @@ class TransportController extends Controller
 
     public function edit(Transports $transport)
     {
+        $this->authorize('edit');
         return view('transport.edit', [
             'transport' => $transport
         ]);
@@ -40,6 +44,7 @@ class TransportController extends Controller
 
     public function update(Request $request, Transports $transport)
     {
+        $this->authorize('edit');
         $data = $request->validate([
             'name' => ['required', 'string', Rule::unique('transports')->ignore($transport->id)]
         ]);
@@ -50,6 +55,7 @@ class TransportController extends Controller
 
     public function destroy(Transports $transport)
     {
+        $this->authorize('delete');
         $transport->delete();
         return redirect()->back()->withSuccess('Berhasil Hapus');
     }

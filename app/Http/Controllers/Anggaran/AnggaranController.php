@@ -10,6 +10,7 @@ class AnggaranController extends Controller
 {
     public function index()
     {
+        $this->authorize('read');
         return view('anggaran.index', [
             'anggarans' => Anggaran::get()
         ]);
@@ -17,17 +18,20 @@ class AnggaranController extends Controller
 
     public function create()
     {
+        $this->authorize('create');
         return view('anggaran.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create');
         Anggaran::create($request->all());
         return redirect()->route('anggaran.index')->withSuccess('Berhasil Tambah');
     }
 
     public function destroy(Anggaran $anggaran)
     {
+        $this->authorize('delete');
         $anggaran->delete();
         return response()->json([
             'status' => 'success',

@@ -94,16 +94,13 @@
                                 </div>
 
                                 <div class="col-md-6 align-items-center">
+                                    <h1>Foto</h1>
                                     <div class="wrapper">
                                         @if (auth()->user()->image)
-                                            <img src="{{ asset('storage/' . auth()->user()->image) }}" style="height: 300px;
-                                            width: 300px;
-                                            position: relative;
-                                            border: 5px solid #fff;
-                                            border-radius: 50%;
-                                            background-size: 100% 100%;
-                                            overflow: hidden;">
+                                            <img src="{{ asset('storage/' . auth()->user()->image) }}" class="profile">
+                                            <input type="file" name="image" class="image">
                                         @else
+                                            <img src="{{ asset('assets/images/avatar1.png') }}" class="profile">
                                             <input type="file" name="image" class="image">
                                         @endif
                                     </div>

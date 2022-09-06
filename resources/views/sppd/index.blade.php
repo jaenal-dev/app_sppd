@@ -17,8 +17,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-end">
-                        <a href="{{ route('sppd.create') }}" class="btn btn-primary mb-2" role="button"><i class="fas fa-plus"></i>
-                        Tambah</a>
+                        @can('read')
+                            <a href="{{ route('sppd.create') }}" class="btn btn-primary mb-2" role="button"><i
+                                    class="fas fa-plus"></i>
+                                Tambah</a>
+                        @endcan
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -38,50 +41,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($sppds as $sppd)
-                                        <tr data-entry-id="{{ $sppd->id }}">
-                                            <td class="form-text">{{ $sppd->nomor }}</td>
-                                            {{-- <td class="form-text">
-                                                {{ $sppd->user()->get()->implode('name', ', ') }}
-                                            </td>
-                                            <td class="form-text">
-                                                {{ $sppd->location()->get()->implode('name', ', ') }}
-                                            </td>
-                                            <td class="form-text">
-                                                {{ $sppd->transport()->get()->implode('name', ', ') }}
-                                            </td> --}}
-                                            <td class="form-text">{{ $sppd->tujuan }}</td>
-                                            {{-- <td class="form-text">
-                                                {{ date('d/F/Y', strtotime($sppd->tgl_pergi)) }}<br>s/d<br>{{ date('d/F/Y', strtotime($sppd->tgl_pulang)) }}
-                                            </td> --}}
-                                            @if (Auth::user()->role == 1)
-                                            <td>
-                                                <div class="btn-group pt-2">
-                                                    @if ($sppd->status == 1)
-                                                        <a href="#" class="btn btn-success btn-rounded" data-toggle="tooltip" title="Approved"><i class="fa fa-check"></i></a>
-                                                    @else
-                                                        <a href="#" class="btn btn-warning btn-rounded" data-toggle="tooltip" title="Pending"><i class="fa fa-clock"></i></a>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                            @endif
-                                            <td>
-                                                <div class="btn-group py-2 mb-0" role="button">
-                                                    @if (Auth::user()->role == 1)
-                                                        <a href="#" class="btn btn-primary" data-toggle="tooltip" title="Print"><i class="fa fa-print"></i></a>
-                                                        <a href="{{ route('nppd.edit', $nppd) }}" class="btn btn-warning" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                        <form action="{{ route('nppd.destroy', $nppd) }}" method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button class="btn btn-danger" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></button>
-                                                        </form>
-                                                    @else
-                                                        <a href="{{ route('report.create', $nppd->id) }}" class="btn btn-success" data-toggle="tooltip" title="Buat Laporan"><i class="fas fa-pencil-alt"></i></a>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>

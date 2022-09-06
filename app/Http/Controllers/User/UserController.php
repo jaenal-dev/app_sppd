@@ -10,6 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
+        $this->authorize('read');
         return view('user.index', [
             'users' => User::paginate(10)
         ]);
@@ -17,11 +18,13 @@ class UserController extends Controller
 
     public function create()
     {
+        $this->authorize('create');
         return view('user.create');
     }
 
     public function store(Request $request, User $user)
     {
+        $this->authorize('create');
         $validateData = $request()->validate([
             'name' => ['required', 'string', 'max:50'],
             'nip' => ['required', 'string', 'unique:users'],
@@ -37,6 +40,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $this->authorize('delete');
         $user->delete();
         return redirect()->back()->withSuccess($user->name . 'Berhasil Dihapus');
     }

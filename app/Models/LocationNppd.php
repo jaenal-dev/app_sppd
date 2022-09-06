@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NppdUser extends Model
+class LocationNppd extends Model
 {
     use HasFactory;
 
-    protected $table = 'nppd_user';
+    protected $table = 'location_nppd';
 
-    public function user()
+    public function location()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Locations::class);
     }
 
     public function nppd()

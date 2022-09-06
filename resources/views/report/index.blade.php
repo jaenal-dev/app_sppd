@@ -21,11 +21,10 @@
 
                     </div>
                     <div class="card-body">
-                        <div class="card-responsive">
+                        <div class="table-responsive">
                             <table id="example2" class="table display text-center table-sm">
                                 <thead>
                                     <tr>
-                                        <th><small>No</small></th>
                                         <th><small>Nomor Surat</small></th>
                                         <th><small>tujuan</small></th>
                                         <th><small>Laporan</small></th>
@@ -36,7 +35,6 @@
                                 <tbody>
                                     @foreach ($nppds as $nppd)
                                         <tr>
-                                            <td class="form-text">{{ $loop->iteration }}</td>
                                             <td class="form-text">{{ $nppd->nomor }}</small></td>
                                             <td class="form-text">{{ $nppd->nppd_get->tujuan ?? '' }}</small></td>
                                             <td class="form-text">{!! $nppd->laporan !!}</small></td>

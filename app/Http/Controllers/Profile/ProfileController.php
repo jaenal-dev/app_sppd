@@ -17,7 +17,7 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'string', 'max:50'],
             'nip' => ['required', 'size:10', Rule::unique('users')->ignore(auth()->user()->id)],
             'jenis_kelamin' => ['required', 'in:P,L'],
@@ -27,22 +27,13 @@ class ProfileController extends Controller
         ]);
 
         if ($request->file('image')) {
-            Storage::delete(auth()->user()->image);
-            $image = request()->file('image')->store('user');
-        } elseif (auth()->user()->image) {
-            $image = auth()->user()->image;
-        } else {
-            $image = null;
+            if (auth()->user()->image) {
+                Storage::delete(auth()->user()->image);
+            }
+            $data['image'] = $request->file('image')->store('user');
         }
 
-        Auth::user()->update([
-            'name' => $request->name,
-            'nip' => $request->nip,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'pangkat' => $request->pangkat,
-            'esselon' => $request->esselon,
-            'image' => $image,
-        ]);
+        Auth::user()->update($data);
 
         return redirect()->route('dashboard')->withSuccess('Profil ' . auth()->user()->name . ' Berhasil Diubah');
     }

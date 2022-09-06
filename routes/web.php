@@ -10,6 +10,7 @@ use App\Http\Controllers\Profile\{ProfileController, UpdatePasswordController};
 use App\Http\Controllers\Auth\{RegisterController, LoginController};
 use App\Http\Controllers\Location\LocationController;
 use App\Http\Controllers\Report\ReportController;
+use App\Http\Controllers\Spt\SptController;
 use App\Http\Controllers\Transport\TransportController;
 
 /*
@@ -46,6 +47,8 @@ Route::middleware(['auth'])->group(function()
 
     Route::resource('/sppd', SppdController::class);
 
+    Route::resource('/spt', SptController::class);
+
     // Route::resource('/nppd', NppdController::class);
     // Route NPPD
     Route::get('/nppd', [NppdController::class, 'index'])->name('nppd.index');
@@ -55,6 +58,7 @@ Route::middleware(['auth'])->group(function()
     Route::put('/nppd/{nppd}/edit', [NppdController::class, 'update']);
     Route::delete('/nppd/{nppd}', [NppdController::class, 'destroy'])->name('nppd.destroy');
     Route::put('/status/{nppd}', [NppdController::class, 'status'])->name('status');
+    Route::get('/nppd/print/{nppd}', [NppdController::class, 'print'])->name('nppd.print');
     // Route NPPD
 
     Route::resource('/location', LocationController::class);

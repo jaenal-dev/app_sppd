@@ -11,16 +11,19 @@ class LocationController extends Controller
 {
     public function index()
     {
+        $this->authorize('read');
         return view('location.index',['locations' => Locations::get()]);
     }
 
     public function create()
     {
+        $this->authorize('create');
         return view('location.create');
     }
 
     public function store(Request $request, Locations $locations)
     {
+        $this->authorize('create');
         $data = $request->validate([
             'name' => ['required', 'string', 'unique:locations']
         ]);
@@ -31,11 +34,13 @@ class LocationController extends Controller
 
     public function edit(Locations $location)
     {
+        $this->authorize('edit');
         return view('location.edit', ['location' => $location]);
     }
 
     public function update(Request $request, Locations $location)
     {
+        $this->authorize('edit');
         $data = $request->validate([
             'name' => ['required', 'string', Rule::unique('locations')->ignore($location->id)]
         ]);
@@ -46,6 +51,7 @@ class LocationController extends Controller
 
     public function destroy(Locations $location)
     {
+        $this->authorize('delete');
         $location->delete();
         return redirect()->back()->withSuccess('Berhasil Hapus');
     }

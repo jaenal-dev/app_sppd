@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Form NPPD')
+@section('title', 'Form Nota Dinas')
 
 @section('css')
     <link href="{{ asset('') }}vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
@@ -10,7 +10,7 @@
 @section('content')
 
     <div class="title">
-        Form NPPD
+        Form Nota Dinas
     </div>
     <div class="card">
         <form action="{{ route('nppd.create') }}" method="POST">
@@ -71,7 +71,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-6 mb-3">
                         <label class="form-label mb-2">Anggaran</label>
                         <select class="form-select @error('anggaran') is-invalid @enderror" name="anggaran_id" data-placeholder="Anggaran">
                             <option value=""> - </option>
@@ -80,6 +80,25 @@
                             @endforeach
                         </select>
                         @error('anggaran')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label mb-2">Kode Rekening</label>
+                        <select class="form-select @error('kode_rekenings_id') is-invalid @enderror" name="kode_rekenings_id" data-placeholder="Anggaran">
+                            <option value=""> - </option>
+                            @foreach ($kode_rekenings as $kode_rekenings_id)
+                                <option value="{{ $kode_rekenings_id->id }}">{{ $kode_rekenings_id->kode_rekening }}</option>
+                            @endforeach
+                        </select>
+                        @error('anggaran')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label mb-2">Prihal</label>
+                        <input type="text" class="form-control @error('prihal') is-invalid @enderror" name="prihal" value="{{ old('prihal') }}">
+                        @error('prihal')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

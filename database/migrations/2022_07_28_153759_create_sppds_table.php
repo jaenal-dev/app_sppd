@@ -15,18 +15,8 @@ return new class extends Migration
     {
         Schema::create('sppds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->string('no_sppd')->unique();
-            $table->string('pejabat');
-            $table->string('tempat_tujuan');
-            $table->string('tujuan');
-            $table->foreignId('transport_id');
-            $table->string('lama');
-            $table->string('instansi');
-            $table->date('tgl_pergi');
-            $table->date('tgl_pulang');
-            $table->string('anggaran');
-            $table->string('keterangan');
+            $table->string('nomor')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

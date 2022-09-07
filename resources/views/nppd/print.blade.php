@@ -1,119 +1,87 @@
 @extends('layouts.surat')
 
-@section('title', 'Surat Tugas')
+@section('title', 'Nota Dinas')
 
-@section('judul', 'SURAT TUGAS')
-
-@section('nomor', 'Nomor : ' . $get_id->nomor)
+@section('judul', 'Nota Dinas')
 
 @section('surat')
 
-    <div class="container py-2 page-break">
+    <div class="container-fluid py-2">
         <div class="card" style="border: none">
             <div class="card-body">
-                <p>Yang bertanda tangan dibawah ini :</p>
                 <div class="table-responsive" style="margin-top: -15px">
                     <table>
                         <thead>
                             <tr>
-                                <th style="width: 40%;">Nama</th>
-                                <th>: H.ASEP SUHERMAN,SH.MBA,MM</th>
+                                <td style="width: 32%;">Kepada Yth</td>
+                                <td>: Bapak Sekretaris DPRD Kabupaten Tangerang</td>
                             </tr>
                             <tr>
-                                <th style="width: 40%;">NIP .</th>
-                                <th>: 197005051997031003</th>
+                                <td style="width: 32%;">Dari.</td>
+                                <td>: PPTK Penyelenggaraan Rapat Koordinasi dan Konsultasi SKPD</td>
                             </tr>
                             <tr>
-                                <th style="width: 40%;">Pangkat/Golongan</th>
-                                <th>: Pembina Utama Muda (IV/c)</th>
+                                <td style="width: 32%;">Kode Rekening</td>
+                                <td>: {{ $rekening->kode_rekening }}</td>
                             </tr>
                             <tr>
-                                <th style="width: 40%;">Jabatan</th>
-                                <th>: Sekretaris DPRD</th>
+                                <td style="width: 32%;">Tanggal</td>
+                                <td>: {{ date('d F Y', strtotime($nppd->created_at)) }}</td>
                             </tr>
                         </thead>
                     </table>
-
-                    <div class="text-center py-2">
-                        <p><b>Memerintahkan Kepada</b></p>
-                    </div>
-
-                    <div class="table-responsive" style="margin-top: -20px">
-                        <table class="table table-bordered text-center">
-                            <thead>
-                                <tr>
-                                    <th style="width: 5%;">No</th>
-                                    <th>Nama</th>
-                                    <th>Golongan</th>
-                                    <th>Jabatan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($nppd_for as $item)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->user->name }}</td>
-                                        <td>{{ $item->user->pangkat }}</td>
-                                        <td>{{ $item->user->esselon }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <p class="card-text ms-5">Untuk melaksanakan perintah dalam rangka {{ $get_id->tujuan }}, yang akan dilaksanakan pada :</p>
-                    <div class="table-responsive mx-5" style="margin-top: -10px">
-                        <table class="table table-borderless table-sm">
-                            <thead>
-                                <tr>
-                                    <td>Hari : {{ $day }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal  : {{ date('d', strtotime($get_id->tgl_pergi)) }} s/d {{ date('d F Y', strtotime($get_id->tgl_pulang)) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tempat    : {{ $get_loc->name }}</td>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <p class="card-text ms-5" style="margin-top: -10px;">Demikian Surat Perintah ini dibuat dapat dipergunakan sebagaimana mestinya.</p>
-                    <p class="card-text ms-5" style="margin-top: -10px">Biaya perjalanan dinas ini dibebankan pada pagu anggaran pada kegiatan Penyelenggaraan Koordinasi dan Konsultasi SKPD dengan Kode Kegiatan : 4.02.01.2.06.09 5.1.02.04.01.0001 </p>
-
-                    <div class="table-responsive">
-                        <table class="table table-borderless table-sm text-end">
-                            <thead>
-                                <tr>
-                                    <td style="width: 80%;"><font size="3">Dibuat</font></td>
-                                    <td><font size="3">: di Tigaraksa</font></td>
-                                </tr>
-                                <tr>
-                                    <td><font size="3">Pada Tanggal</font></td>
-                                    <td><font size="3">: {{ date('d F Y', strtotime($get_id->created_at)) }}</font></td>
-                                </tr>
-                            </thead>
-                        </table>
-                        <div class="d-flex">
-                            <div class="card ms-auto" style="border: none; margin-top: -30px; background: transparent">
-                                <div class="card-body text-center mx-3">
-                                    <font size="3"><b>SEKRETARIS DPRD</b></font><br>
-                                    <font size="3"><b>KABUPATEN TANGERANG</b></font>
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <font size="3"><b>H.ASEP SUHERMAN,SH.MBA,MM</b></font>
-                                    <br>
-                                    <font size="2">Pembina Utama Muda (IV/c)</font>
-                                    <br>
-                                    <font size="3">Nip. 1234567890</font>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <hr>
+                    <p style="text-indent: 45px">Disampaikan dengan hormat {{ $nppd->prihal }} untuk melaksanakan tugas dalam rangka melaksanakan {{ $nppd->tujuan }}, yang dilaksanakan pada :</p>
+                    <table style="text-indent: 45px">
+                        <thead>
+                            <tr>
+                                <td style="width: 25%;">Hari</td>
+                                <td>: {{ $day }}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 25%;">Tanggal</td>
+                                <td>: {{ date('d', strtotime($nppd->tgl_pergi)) }} s/d {{ date('d F Y', strtotime($nppd->tgl_pulang)) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 25%;">Tempat</td>
+                                <td>: {{ $locations->name }}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <p class="mt-2">Adapun rincian biaya perjalanan dinas sebagai berikut :</p>
+                    <table class="table table-bordered" style="text-indent: 45px">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Uraian</th>
+                                <th>Volume</th>
+                                <th>Jumlah</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>1</th>
+                                <td>Uang Harian <br> a</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
 @endsection
+
+{{-- <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+  </body>
+</html> --}}

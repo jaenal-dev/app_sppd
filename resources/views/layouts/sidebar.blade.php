@@ -10,7 +10,7 @@
         </a>
     </div>
     <div class="sidebar-header">
-        <div class="text mx-5 p-3 text-center"><img src="{{ asset('assets/images/logo_kabupatentangerang_perda.png') }}" class="img" width="80" height="85"></div>
+        <div class="text mx-5 p-3 text-center"><img src="/assets/images/logo_kabupatentangerang_perda.png" class="img" width="80" height="85"></div>
         <div class="close-sidebar action-toggle">
             <i class="ti-close"></i>
         </div>
@@ -38,11 +38,12 @@
                     <i class="fas fa-envelope-open"></i>
                     <span>Data</span>
                 </a>
-                <ul class="sub-menu {{ Request::is('nppd*', 'sppd*', 'spt*') ? 'expand' : '' }}">
+                <ul class="sub-menu {{ Request::is('nppd*', 'sppd*') ? 'expand' : '' }}">
                     {{-- @can('read') --}}
-                        <li class="{{ Request::is('nppd*') ? 'active' : '' }}"><a href="{{ route('nppd.index') }}" class="link"><span>NPPD</span></a></li>
+                        <li class="{{ Request::is('nppd*') ? 'active' : '' }}"><a href="{{ route('nppd.index') }}" class="link"><span>Nota Dinas</span></a></li>
                     {{-- @endcan --}}
                     <li class="{{ Request::is('sppd*') ? 'active' : '' }}"><a href="{{ route('sppd.index') }}" class="link"><span>SPPD</span></a></li>
+                    <li class=""><a href="#" class="link"><span>Surat Tugas</span></a></li>
                 </ul>
             </li>
             <li class="{{ Request::is('report*') ? 'active' : '' }}">

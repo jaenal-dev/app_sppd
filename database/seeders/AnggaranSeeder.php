@@ -16,13 +16,16 @@ class AnggaranSeeder extends Seeder
     public function run()
     {
         $anggarans = collect([
+            '100000',
+            '200000',
+            '300000',
+            '400000',
+            '500000',
             '600000',
+            '700000',
+            '800000',
+            '900000',
             '1000000',
-            '1200000',
-            '1500000',
-            '1800000',
-            '2000000',
-            '2500000'
         ]);
 
         $anggarans->each(function ($anggaran) {

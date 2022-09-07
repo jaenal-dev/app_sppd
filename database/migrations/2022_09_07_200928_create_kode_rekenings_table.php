@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('nppds', function (Blueprint $table) {
+        Schema::create('kode_rekenings', function (Blueprint $table) {
             $table->id();
-            $table->integer('kode_rekenings_id');
-            $table->string('tujuan');
-            $table->string('prihal');
-            $table->date('tgl_pergi');
-            $table->date('tgl_pulang');
-            $table->integer('status')->default(0)->nullable();
-            $table->integer('anggaran_id');
+            $table->string('kode_rekening');
             $table->timestamps();
         });
     }
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nppds');
+        Schema::dropIfExists('kode_rekenings');
     }
 };

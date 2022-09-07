@@ -10,7 +10,7 @@
 @section('content')
 
     <div class="title">
-        Data NPPD (Nota Permintaan Perjalanan Dinas)
+        Nota Dinas
     </div>
     <div class="content-wrapper">
         <div class="row same-height">
@@ -28,11 +28,9 @@
                                 <table id="example2" class="table display text-center table-md">
                                     <thead>
                                         <tr>
-                                            <th><small>No. Surat</small></th>
                                             <th><small>Dibuat</small></th>
                                             <th><small>Penugasan <br> Kepada</small></th>
                                             <th><small>Lokasi</small></th>
-                                            <th><small>Transportasi</small></th>
                                             <th><small>Maksud <br> Perjalanan Dinas</small></th>
                                             <th><small>Tgl Pergi <br> s/d <br> Tgl Kembali</small></th>
                                             <th><small>Status</small></th>
@@ -42,7 +40,6 @@
                                     <tbody>
                                         @foreach ($nppds as $nppd)
                                             <tr data-entry-id="{{ $nppd->id }}">
-                                                <td class="form-text">{{ $nppd->nomor }}</td>
                                                 <td class="form-text">
                                                     {{ date('d-F-Y', strtotime($nppd->created_at)) }}
                                                 </td>
@@ -51,9 +48,6 @@
                                                 </td>
                                                 <td class="form-text">
                                                     {{ $nppd->location()->get()->implode('name', ', ') }}
-                                                </td>
-                                                <td class="form-text">
-                                                    {{ $nppd->transport()->get()->implode('name', ', ') }}
                                                 </td>
                                                 <td class="form-text">{{ $nppd->tujuan }}</td>
                                                 <td class="form-text">
@@ -87,6 +81,7 @@
                                                 <td class="p-3">
                                                     <div class="btn-group" role="button">
                                                         @if (Auth::user()->role == 1)
+                                                            <a href="{{ route('nppd.print', $nppd) }}" class="btn btn-primary mx-1" data-toggle="tooltip" title="Print"><i class="fa fa-print"></i></a>
                                                             <a href="{{ route('nppd.edit', $nppd) }}" class="btn btn-warning" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                                             <form action="{{ route('nppd.destroy', $nppd) }}" method="POST" class="d-inline">
                                                                 @csrf
@@ -105,7 +100,7 @@
                                 </table>
                             </div>
                         @else
-                            <h5 class="text-center">Belum ada penjadwalan</h5>
+                            <h5 class="text-center">Nota Masih Kosong</h5>
                         @endif
                     </div>
                 </div>

@@ -39,18 +39,13 @@ class Nppd extends Model
         return $this->belongsTo(Anggaran::class);
     }
 
+    public function rekening()
+    {
+        return $this->belongsTo(KodeRekening::class);
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
-    }
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function($model) {
-            $model->id = Nppd::orderBy('id')->max('id') + 1;
-            $model->nomor = str_pad($model->id, 3, '0', STR_PAD_LEFT) . '/' . '622.96'. '/' . 'um' . '/' . '2891 - setwan' . '/' . '2022';
-        });
     }
 }

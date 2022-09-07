@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Anggaran;
 use App\Models\Nppd;
 use App\Models\NppdUser;
+use App\Models\KodeRekening;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
@@ -18,16 +19,15 @@ class NppdController extends Controller
 {
     public function index()
     {
-        // $this->authorize('read');
-        if (Auth::user()->role == 1) {
-            $nppds = Nppd::latest()->get();
+        if (Auth::user()->role == 1 || Auth::user()->role == 2) {
+            $nppds = Nppd::all();
         } else {
             $nppds = Nppd::whereHas('nppd_user', function($q){
                 $q->where('user_id', Auth::user()->id);
             })->get();
         }
 
-        return view('nppd.index', ['nppds' => $nppds]);
+        return view('nppd.index', compact('nppds'));
     }
 
     public function create()
@@ -37,7 +37,8 @@ class NppdController extends Controller
             'users' => User::get(),
             'locations' => Locations::get(),
             'transports' => Transports::get(),
-            'anggarans' => Anggaran::get()
+            'anggarans' => Anggaran::get(),
+            'kode_rekenings' => KodeRekening::get(),
         ]);
     }
 
@@ -46,9 +47,11 @@ class NppdController extends Controller
         $this->authorize('create');
         $validateData = $request->validate([
             'tujuan' => ['required', 'max:50', 'string'],
+            'prihal' => ['required', 'max:100', 'string'],
             'tgl_pergi' => ['required', 'date'],
             'tgl_pulang' => ['required', 'date'],
             'anggaran_id' => ['required'],
+            'kode_rekenings_id' => ['required'],
             'nomor' => ['nullable'],
         ]);
         $nppd = Nppd::create($validateData);
@@ -105,34 +108,23 @@ class NppdController extends Controller
 
     public function print($id)
     {
-        $get_id = Nppd::find($id);
-        $get_loc = Locations::find($id);
-        $get_nppd = NppdUser::where('nppd_id', $id)->get();
-
+        $nppd = Nppd::findOrFail($id);
         // Pergi
-        $time_datang = Carbon::parse($get_id->tgl_pergi)->locale('id');
+        $time_datang = Carbon::parse($nppd->tgl_pergi)->locale('id');
         $time_datang->settings(['formatFunction' => 'translatedFormat']);
         //Pulang
-        $time_pulang = Carbon::parse($get_id->tgl_pulang)->locale('id');
+        $time_pulang = Carbon::parse($nppd->tgl_pulang)->locale('id');
         $time_pulang->settings(['formatFunction' => 'translatedFormat']);
 
         $day = $time_datang->format('l') .' s/d ' . $time_pulang->format('l'); // Selasa, 16 Maret 2021 ; 08:27 pagi
 
-        // return view('nppd.print', [
-        //     'nppd_for' => $get_nppd,
-        //     'get_id' => $get_id,
-        //     'get_loc' => $get_loc,
-        //     'day' => $day
-        // ]);
-
-        $pdf = Pdf::loadView('nppd.print', [
-            'nppd_for' => $get_nppd,
-            'get_id' => $get_id,
-            'get_loc' => $get_loc,
+        return view('nppd.print', [
+            'nppds' => NppdUser::where('nppd_id', $id)->get(),
+            'nppd' => $nppd,
+            'locations' => Locations::findOrFail($id),
+            'rekening' => KodeRekening::findOrFail($id),
             'day' => $day
-        ])->setPaper('a4', 'potrait');
-
-        // dd($pdf);
-        return $pdf->download('invoice.pdf');
+        ]);
+        return $pdf->download();
     }
 }

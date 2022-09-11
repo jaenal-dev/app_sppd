@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('nppds', function (Blueprint $table) {
+        Schema::create('pejabats', function (Blueprint $table) {
             $table->id();
-            $table->string('kepada', 50);
-            $table->string('dari', 100);
-            $table->integer('anggaran_id');
-            $table->integer('spt_id');
-            $table->string('prihal', 50);
-            $table->integer('status')->default(0)->nullable();
+            $table->string('name', 50);
+            $table->string('nip', 20);
+            $table->string('pangkat', 50);
+            $table->string('jabatan', 30);
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nppds');
+        Schema::dropIfExists('pejabats');
     }
 };

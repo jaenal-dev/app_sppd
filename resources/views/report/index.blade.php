@@ -10,7 +10,7 @@
 @section('content')
 
     <div class="title">
-        Halaman Laporan SPPD
+        Laporan SPPD
     </div>
 
     <div class="content-wrapper">
@@ -33,18 +33,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($nppds as $nppd)
+                                    @foreach ($sppds as $sppd)
                                         <tr>
-                                            <td class="form-text">{{ $nppd->nomor }}</small></td>
-                                            <td class="form-text">{{ $nppd->nppd_get->tujuan ?? '' }}</small></td>
-                                            <td class="form-text">{!! $nppd->laporan !!}</small></td>
+                                            <td class="form-text">{{ $sppd->nomor }}</small></td>
+                                            <td class="form-text">{{ $sppd->spt->tujuan }}</small></td>
+                                            <td class="form-text">{!! $sppd->laporan !!}</small></td>
                                             <td class="form-text">
-                                                {{ date('d/F/Y', strtotime($nppd->nppd_get->tgl_pergi ?? '')) }}<br>s/d<br>{{ date('d/F/Y', strtotime($nppd->nppd_get->tgl_pulang ?? '')) }}
+                                                {{ date('d/F/Y', strtotime($sppd->sppd_get->tgl_pergi ?? '')) }}<br>s/d<br>{{ date('d/F/Y', strtotime($sppd->sppd_get->tgl_pulang ?? '')) }}
                                             </td>
                                             <td>
                                                 <div class="py-2 mb-0" role="button">
                                                     @if (Auth::user()->role == 1)
-                                                    <form action="{{ route('report.destroy', $nppd) }}" method="POST" class="d-inline">
+                                                    <form action="{{ route('report.destroy', $sppd) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('delete')
                                                         <button class="btn btn-danger" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></button>
@@ -52,8 +52,8 @@
                                                     @else
                                                     <a href="{{ route('report.print') }}" class="btn btn-primary" data-toggle="tooltip" title="Print"><i class="fa fa-print"></i></a>
                                                     {{-- <a href="{{ route('report.print') }}" class="btn btn-success" data-toggle="tooltip" title="Lihat"><i class="fa fa-eye"></i></a> --}}
-                                                    <a href="{{ route('report.edit', $nppd) }}" class="btn btn-warning" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                    {{-- <form action="{{ route('report.destroy', $nppd) }}" method="POST" class="d-inline">
+                                                    <a href="{{ route('report.edit', $sppd) }}" class="btn btn-warning" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                    {{-- <form action="{{ route('report.destroy', $sppd) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('delete')
                                                         <button class="btn btn-danger" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></button>

@@ -12,11 +12,11 @@ class Report extends Model
     protected $table = 'reports';
 
     protected $fillable = [
-        'nomor', 'laporan', 'nppd_id', 'user_id'
+        'nomor', 'laporan', 'sppd_id', 'user_id'
     ];
 
-    public function nppd_get()
+    public function spt()
     {
-        return $this->belongsTo(Nppd::class, 'nppd_id', 'id');
+        return $this->belongsTo(Spt::class, 'spt_id', 'id');
     }
 }

@@ -2,90 +2,97 @@
 
 namespace App\Http\Controllers\Sppd;
 
-use App\Models\Sppd;
-use App\Models\User;
+use App\Models\{Sppd, Spt, User};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class SppdController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(User $user)
     {
+        if (Auth::user()->role == 1 || Auth::user()->role == 2) {
+            $sppds = Sppd::get();
+        } else {
+            $sppds = Sppd::whereHas('spt_user', function($q){
+                $q->where('user_id', Auth::user()->id);
+            })->get();
+        }
         return view('sppd.index', [
-            'sppds' => Sppd::all()
+            'sppds' => Sppd::find($user),
+            'sppds' => $sppds
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(Spt $spt)
     {
-        return view('sppd.create', [
-            'users' => User::all()
-        ]);
+        $this->authorize('create');
+        return view('sppd.create', ['spts' => $spt]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create');
+        $request->validate([
+            'tempat_berangkat' => ['required', 'string', 'max:50'],
+            'instansi' => ['required', 'string', 'max:50'],
+            'mata_anggaran' => ['required', 'string', 'max:50'],
+            'keterangan' => ['required', 'string', 'max:50'],
+        ]);
+
+        Sppd::create([
+            'tempat_berangkat' => $request->tempat_berangkat,
+            'instansi' => $request->instansi,
+            'mata_anggaran' => $request->mata_anggaran,
+            'keterangan' => $request->keterangan,
+            'nomor' => $request->nomor,
+            'spt_id' => $request->spt_id,
+            'user_id' => Auth::user()->id
+        ]);
+        return redirect()->route('sppd.index')->withSuccess('Berhasil Menambah SPPD');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Sppd $sppd)
     {
-        //
+        $this->authorize('edit');
+        return view('sppd.edit', ['sppd' => $sppd]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sppd $sppd)
     {
-        //
+        $this->authorize('edit');
+        $request->validate([
+            'tempat_berangkat' => ['required', 'string', 'max:50'],
+            'instansi' => ['required', 'string', 'max:50'],
+            'mata_anggaran' => ['required', 'string', 'max:50'],
+            'keterangan' => ['required', 'string', 'max:50'],
+        ]);
+
+        $sppd->update([
+            'tempat_berangkat' => $request->tempat_berangkat,
+            'instansi' => $request->instansi,
+            'mata_anggaran' => $request->mata_anggaran,
+            'keterangan' => $request->keterangan,
+            'nomor' => $request->nomor,
+            'spt_id' => $request->spt_id,
+            'user_id' => Auth::user()->id
+        ]);
+
+        return redirect()->route('sppd.index')->withSuccess('Berhasil Ubah SPPD');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Sppd $sppd)
     {
-        //
+        $this->authorize('delete');
+        $sppd->delete();
+        return response()->json([
+            'status' => 'success',
+            'Message' => 'Berhasil Hapus'
+        ]);
     }
 }

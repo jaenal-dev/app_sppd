@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('sppds', function (Blueprint $table) {
             $table->id();
-            $table->string('nomor')->nullable();
+            $table->string('nomor', 50)->nullable();
+            $table->integer('spt_id');
+            $table->integer('user_id');
+            $table->string('tempat_berangkat', 50);
+            $table->string('instansi', 50);
+            $table->string('mata_anggaran', 50);
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

@@ -5,16 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Locations extends Model
+class Pejabat extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name', 'nip', 'pangkat', 'jabatan'
     ];
-
-    public function spt()
-    {
-        return $this->belongsToMany(Spt::class);
-    }
 }

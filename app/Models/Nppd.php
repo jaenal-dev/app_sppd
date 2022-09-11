@@ -14,24 +14,9 @@ class Nppd extends Model
 
     protected $guarded = ['id'];
 
-    public function nppd_user()
+    public function spt()
     {
-        return $this->belongsTo(NppdUser::class, 'id', 'nppd_id');
-    }
-
-    public function user()
-    {
-        return $this->belongsToMany(User::class, 'nppd_user', 'nppd_id', 'user_id');
-    }
-
-    public function location()
-    {
-        return $this->belongsToMany(Locations::class, 'location_nppd', 'nppd_id', 'location_id');
-    }
-
-    public function transport()
-    {
-        return $this->belongsToMany(Transports::class, 'nppd_transport', 'nppd_id', 'transport_id');
+        return $this->belongsTo(Spt::class);
     }
 
     public function anggaran()
@@ -39,9 +24,9 @@ class Nppd extends Model
         return $this->belongsTo(Anggaran::class);
     }
 
-    public function rekening()
+    public function spt_user()
     {
-        return $this->belongsTo(KodeRekening::class);
+        return $this->belongsTo(SptUser::class, 'id', 'spt_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

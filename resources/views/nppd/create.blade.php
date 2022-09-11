@@ -18,80 +18,40 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label mb-2">Pilih Pegawai</label>
-                        <select class="form-select select2 @error('user') is-invalid @enderror" multiple name="user[]" data-placeholder="Pilih Pegawai" data-allow-clear="true" data-tags="true">
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}-{{ $user->nip }}</option>
+                        <label class="form-label mb-2">No. Surat Tugas</label>
+                        <select class="form-select @error('spt_id') is-invalid @enderror" name="spt_id" data-placeholder="Nomor Surat Tugas">
+                            <option value="">-</option>
+                            @foreach ($spts as $spt)
+                                <option value="{{ $spt->id }}">{{ $spt->nomor }}</option>
                             @endforeach
                         </select>
-                        @error('user')
+                        @error('spt_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label mb-2">Lokasi Tujuan</label>
-                        <select class="form-select select2 @error('location') is-invalid @enderror" multiple name="location[]" data-placeholder="Lokasi Tujuan" data-allow-clear="true" data-tags="true">
-                            @foreach ($locations as $location)
-                                <option value="{{ $location->id }}">{{ $location->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('location')
+                        <label class="form-label mb-2">Kepada</label>
+                        <input type="text" class="form-control @error('kepada') is-invalid @enderror" name="kepada" value="{{ old('kepada') }}">
+                        @error('kepada')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label mb-2">Tujuan</label>
-                        <input type="text" class="form-control @error('tujuan') is-invalid @enderror" name="tujuan" value="{{ old('tujuan') }}">
-                        @error('tujuan')
+                        <label class="form-label mb-2">Dari</label>
+                        <input type="text" class="form-control @error('dari') is-invalid @enderror" name="dari" value="{{ old('dari') }}">
+                        @error('dari')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label mb-2">Jenis Transport</label>
-                        <select class="form-select select2 @error('transport') is-invalid @enderror" multiple name="transport[]" data-placeholder="Jenis Transportasi" data-allow-clear="true" data-tags="true">
-                            @foreach ($transports as $transport)
-                                <option value="{{ $transport->id }}">{{ $transport->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('transport')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-md-12">
-                        <label for="start_date" class="form-label">Tanggal Berangkat s/d Pulang</label>
-                        <div class="input-group mb-3 input-daterange datepicker date">
-                            <input class="form-control @error('tgl_pergi') is-invalid @enderror" required="" type="text" id="start_date" name="tgl_pergi" value="{{ old('tgl_pergi') }}" readonly="">
-                            @error('tgl_pergi')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <span class="bg-primary text-light px-3 justify-content-center align-items-center d-flex">To</span>
-                            <input class="form-control @error('tgl_pulang') is-invalid @enderror" required="" type="text" id="end_date" name="tgl_pulang" value="{{ old('tgl_pulang') }}" readonly="">
-                            @error('tgl_pulang')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label mb-2">Anggaran</label>
-                        <select class="form-select @error('anggaran') is-invalid @enderror" name="anggaran_id" data-placeholder="Anggaran">
-                            <option value=""> - </option>
+                        <select class="form-select @error('anggaran_id') is-invalid @enderror" name="anggaran_id" data-placeholder="Anggaran">
+                            <option value="">-</option>
                             @foreach ($anggarans as $anggaran)
                                 <option value="{{ $anggaran->id }}">{{ $anggaran->nominal }}</option>
                             @endforeach
                         </select>
-                        @error('anggaran')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label mb-2">Kode Rekening</label>
-                        <select class="form-select @error('kode_rekenings_id') is-invalid @enderror" name="kode_rekenings_id" data-placeholder="Anggaran">
-                            <option value=""> - </option>
-                            @foreach ($kode_rekenings as $kode_rekenings_id)
-                                <option value="{{ $kode_rekenings_id->id }}">{{ $kode_rekenings_id->kode_rekening }}</option>
-                            @endforeach
-                        </select>
-                        @error('anggaran')
+                        @error('anggaran_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

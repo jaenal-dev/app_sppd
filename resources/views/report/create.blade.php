@@ -5,20 +5,20 @@
 @section('content')
 
     <div class="title">
-        Form Tambah Laporan SPPD
+        Form Tambah Laporan Kegiatan Perjalanan Dinas
     </div>
     <div class="content-wrapper">
         <div class="row same-height">
             <div class="col-md-12">
                 <div class="card">
-                    <form action="{{ route('report.create', $nppds) }}" method="POST">
+                    <form action="{{ route('report.create', $sppds) }}" method="POST">
                         @csrf
-                        <input name="nppd_id" type="hidden" class="form-control" value="{{ $nppds->id }}">
+                        <input name="sppd_id" type="hidden" class="form-control" value="{{ $sppds->id }}">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 mb-3">
                                     <label class="form-label">Nomor Surat</label>
-                                    <input name="nomor" type="text" class="form-control" value="{{ $nppds->nomor }}" readonly>
+                                    <input name="nomor" type="text" class="form-control" value="{{ $sppds->nomor }}" readonly>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label class="form-label">Laporan</label>

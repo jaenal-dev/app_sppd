@@ -9,6 +9,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Profile\{ProfileController, UpdatePasswordController};
 use App\Http\Controllers\Auth\{RegisterController, LoginController};
 use App\Http\Controllers\Location\LocationController;
+use App\Http\Controllers\Pejabat\PejabatController;
 use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\Spt\SptController;
 use App\Http\Controllers\Transport\TransportController;
@@ -43,9 +44,17 @@ Route::middleware(['auth'])->group(function()
     Route::get('/password/edit', [UpdatePasswordController::class, 'edit'])->name('password.edit');
     Route::put('/password/edit', [UpdatePasswordController::class, 'update']);
 
+    Route::resource('/pejabat', PejabatController::class);
+
     Route::resource('/user', UserController::class);
 
-    Route::resource('/sppd', SppdController::class);
+    // Route::resource('/sppd', SppdController::class);
+    Route::get('/sppd', [SppdController::class, 'index'])->name('sppd.index');
+    Route::get('/sppd/create/{spt}', [SppdController::class, 'create'])->name('sppd.create');
+    Route::post('/sppd/create/{spt}', [SppdController::class, 'store']);
+    Route::get('/sppd/{sppd}/edit', [SppdController::class, 'edit'])->name('sppd.edit');
+    Route::put('/sppd/{sppd}/edit', [SppdController::class, 'update']);
+    Route::delete('/sppd/{sppd}', [SppdController::class, 'destroy']);
 
     Route::resource('/spt', SptController::class);
 
@@ -61,6 +70,8 @@ Route::middleware(['auth'])->group(function()
     Route::get('/nppd/print/{nppd}', [NppdController::class, 'print'])->name('nppd.print');
     // Route NPPD
 
+    Route::resource('/surat-tugas', SptController::class);
+
     Route::resource('/location', LocationController::class);
 
     Route::resource('/transport', TransportController::class);
@@ -68,8 +79,8 @@ Route::middleware(['auth'])->group(function()
     Route::resource('/anggaran', AnggaranController::class);
 
     Route::get('/report', [ReportController::class, 'index'])->name('report.index');
-    Route::get('/report/create/{nppd}', [ReportController::class, 'create'])->name('report.create');
-    Route::post('/report/create/{nppd}', [ReportController::class, 'store']);
+    Route::get('/report/create/{sppd}', [ReportController::class, 'create'])->name('report.create');
+    Route::post('/report/create/{sppd}', [ReportController::class, 'store']);
     Route::get('/report/{report}/edit', [ReportController::class, 'edit'])->name('report.edit');
     Route::put('/report/{report}/edit', [ReportController::class, 'update']);
     Route::delete('/report/{report}', [ReportController::class, 'destroy'])->name('report.destroy');

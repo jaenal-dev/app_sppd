@@ -7,5 +7,7 @@
         <font size="2"><b>Tigaraksa-Tangerang 15720</b></font>
     </td>
 </table>
-<div style="margin-left: 300px; margin-right: 300px; height: 3px; background: 1px black"></div>
-<div style="margin-left: 305px; margin-right: 305px; margin-top: 1px; height: 1px; background: 1px black"></div>
+
+<div style="height: 3px; background: 1px black"></div>
+<div style="margin-top: 1px; height: 1px; background: 1px black"></div>
+

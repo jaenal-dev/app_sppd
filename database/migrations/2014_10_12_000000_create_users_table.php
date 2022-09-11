@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nip')->unique();
-            $table->string('name');
+            $table->string('nip', 15)->unique();
+            $table->string('name', 100);
             $table->string('image')->nullable();
             $table->char('jenis_kelamin',1);
-            $table->string('pangkat')->nullable();
-            $table->string('esselon')->nullable();
+            $table->string('pangkat', 50)->nullable();
+            $table->string('esselon', 10)->nullable();
+            $table->string('golongan', 10)->nullable();
             $table->boolean('role')->default(0);
             $table->string('password');
             $table->timestamps();

@@ -13,8 +13,8 @@ class Transports extends Model
         'name'
     ];
 
-    public function nppd()
+    public function spt()
     {
-        return $this->belongsToMany(Nppd::class);
+        return $this->belongsToMany(Spt::class);
     }
 }

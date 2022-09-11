@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             TransportSeeder::class,
             UserSeeder::class,
             AnggaranSeeder::class,
-            KodeRekeningSeeder::class
+            KodeRekeningSeeder::class,
+            PejabatSeeder::class
         ]);
     }
 }

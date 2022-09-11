@@ -30,7 +30,8 @@ class UserSeeder extends Seeder
             'image' => null,
             'role' => 2,
             'jenis_kelamin' => 'L',
-            'pangkat' => 'IV/b - Pembina Tingkat Muda',
+            'pangkat' => 'Pembina Tingkat Muda',
+            'golongan' => 'IV/c',
             'esselon' => 'III.a',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
@@ -40,7 +41,8 @@ class UserSeeder extends Seeder
             'image' => null,
             'role' => 3,
             'jenis_kelamin' => 'L',
-            'pangkat' => 'IV/b - Pembina Tingkat I',
+            'pangkat' => 'Pembina Tingkat I',
+            'golongan' => 'IV/a',
             'esselon' => 'III.a',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
@@ -50,7 +52,8 @@ class UserSeeder extends Seeder
             'image' => null,
             'role' => 3,
             'jenis_kelamin' => 'L',
-            'pangkat' => 'IV/b - Pembina Tingkat II',
+            'pangkat' => 'Pembina Tingkat II',
+            'golongan' => 'IV/b',
             'esselon' => 'III.b',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
@@ -60,7 +63,8 @@ class UserSeeder extends Seeder
             'image' => null,
             'role' => 3,
             'jenis_kelamin' => 'L',
-            'pangkat' => 'IV/b - Pembina Tingkat II',
+            'pangkat' => 'Pembina Tingkat II',
+            'golongan' => 'IV/b',
             'esselon' => 'III.b',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
@@ -70,7 +74,8 @@ class UserSeeder extends Seeder
             'role' => 3,
             'image' => null,
             'jenis_kelamin' => 'L',
-            'pangkat' => 'IV/b - Pembina Tingkat I',
+            'pangkat' => 'Pembina Tingkat I',
+            'golongan' => 'IV/c',
             'esselon' => 'III.c',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);

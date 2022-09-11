@@ -38,12 +38,10 @@
                     <i class="fas fa-envelope-open"></i>
                     <span>Data</span>
                 </a>
-                <ul class="sub-menu {{ Request::is('nppd*', 'sppd*') ? 'expand' : '' }}">
-                    {{-- @can('read') --}}
-                        <li class="{{ Request::is('nppd*') ? 'active' : '' }}"><a href="{{ route('nppd.index') }}" class="link"><span>Nota Dinas</span></a></li>
-                    {{-- @endcan --}}
+                <ul class="sub-menu {{ Request::is('spt*','nppd*', 'sppd*') ? 'expand' : '' }}">
+                    <li class="{{ Request::is('spt*') ? 'active' : '' }}"><a href="{{ route('spt.index') }}" class="link"><span>Surat Tugas</span></a></li>
+                    <li class="{{ Request::is('nppd*') ? 'active' : '' }}"><a href="{{ route('nppd.index') }}" class="link"><span>Nota Dinas</span></a></li>
                     <li class="{{ Request::is('sppd*') ? 'active' : '' }}"><a href="{{ route('sppd.index') }}" class="link"><span>SPPD</span></a></li>
-                    <li class=""><a href="#" class="link"><span>Surat Tugas</span></a></li>
                 </ul>
             </li>
             <li class="{{ Request::is('report*') ? 'active' : '' }}">
@@ -58,10 +56,11 @@
                         <i class="ti-settings"></i>
                         <span>Settings</span>
                     </a>
-                    <ul class="sub-menu {{ Request::is('location*', 'transport*', 'anggaran*') ? 'expand' : '' }}">
+                    <ul class="sub-menu {{ Request::is('location*', 'transport*', 'anggaran*', 'pejabat*') ? 'expand' : '' }}">
                         <li class="{{ Request::is('location*') ? 'active' : '' }}"><a href="{{ route('location.index') }}" class="link"><span> Data Lokasi</span></a></li>
                         <li class="{{ Request::is('transport*') ? 'active' : '' }}"><a href="{{ route('transport.index') }}" class="link"><span> Data Transport</span></a></li>
                         <li class="{{ Request::is('anggaran*') ? 'active' : '' }}"><a href="{{ route('anggaran.index') }}" class="link"><span> Data Anggaran</span></a></li>
+                        <li class="{{ Request::is('pejabat*') ? 'active' : '' }}"><a href="{{ route('pejabat.index') }}" class="link"><span> Data Pejabat</span></a></li>
                     </ul>
                 </li>
             @endcan

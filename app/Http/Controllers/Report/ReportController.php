@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Report;
 
-use App\Models\{Nppd, Report};
+use App\Models\{Sppd, Report};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -12,16 +12,16 @@ class ReportController extends Controller
     public function index()
     {
         if (Auth::user()->role == 1) {
-            $nppds = Report::get();
+            $sppds = Report::get();
         } else {
-            $nppds = Report::where('user_id', Auth::user()->id)->get();
+            $sppds = Report::where('user_id', Auth::user()->id)->get();
         }
-        return view('report.index', ['nppds' => $nppds]);
+        return view('report.index', ['sppds' => $sppds]);
     }
 
-    public function create(Nppd $nppd)
+    public function create(Sppd $sppd)
     {
-        return view('report.create', ['nppds' => $nppd]);
+        return view('report.create', ['sppds' => $sppd]);
     }
 
     public function store(Request $request)
@@ -31,7 +31,7 @@ class ReportController extends Controller
         ]);
 
         Report::create([
-            'nppd_id' => $request->nppd_id,
+            'spt_id' => $request->spt_id,
             'nomor' => $request->nomor,
             'laporan' => $request->laporan,
             'user_id' => Auth::user()->id,
@@ -52,7 +52,7 @@ class ReportController extends Controller
         ]);
 
         $report->update([
-            'nppd_id' => $request->nppd_id,
+            'spt_id' => $request->spt_id,
             'nomor' => $request->nomor,
             'laporan' => $request->laporan,
             'user_id' => Auth::user()->id,

@@ -19,11 +19,11 @@
                         @if ($user->image)
                             <img alt="image" src="{{ asset('storage/' . $user->image) }}" class="img mb-2" height="80" width="80" style="border-radius: 50%">
                         @else
-                            <img alt="image" src="assets/images/avatar1.png" class="img mb-2" height="80" width="80" style="border-radius: 50%">
+                            <img alt="image" src="/assets/images/avatar1.png" class="img mb-2" height="80" width="80" style="border-radius: 50%">
                         @endif
                         <div class="user-details">
                             <div class="user-name">{{ $user->name }}</div>
-                            <div class="text-job text-muted"><small>{{ $user->pangkat }}</small></div>
+                            <div class="text-job text-muted"><small>{{ $user->pangkat }} ({{ $user->golongan }})</small></div>
                             <div class="footer py-2">
                                 <a href="{{ route('profile', $user) }}" class="btn btn-warning mr-3" title="Ubah"><i class="ti-pencil"></i></a>
                                 <form action="{{ route('user.destroy', $user) }}" method="POST" class="d-inline">

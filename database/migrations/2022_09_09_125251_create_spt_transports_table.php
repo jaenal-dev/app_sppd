@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('nppd_user', function (Blueprint $table) {
+        Schema::create('spt_transports', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('nppd_id')->unsigned()->index();
-            $table->bigInteger('user_id')->unsigned()->index();
+            $table->integer('spt_id');
+            $table->integer('transports_id');
             $table->timestamps();
-
-            $table->foreign('nppd_id')->references('id')->on('nppds')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nppd_user');
+        Schema::dropIfExists('spt_transports');
     }
 };

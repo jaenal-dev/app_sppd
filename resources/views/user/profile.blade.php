@@ -91,6 +91,16 @@
                                             </div>
                                         @enderror
                                     </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="golongan">golongan</label>
+                                        <input type="text" class="form-control @error('golongan') is-invalid @enderror"
+                                            value="{{ old('golongan', Auth::user()->golongan) }}" name="golongan">
+                                        @error('golongan')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6 align-items-center">
